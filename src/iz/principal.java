@@ -10,12 +10,11 @@ public class principal extends javax.swing.JFrame {
     String   vpos           = "";
     String   vpos_acum      = "";
     String   vvar           = "abcdefghijklmnopqrstuvxzyw0123456789-_";
-    String   numint         = "0123456789";
-    String   numdec         = "0123456789.";
-    String   simbol         = "=<>+-{};:/*()!,";
+    String   vnum           = "0123456789.";    
     String   vacumtokens    = "";
     String   vacum_variavel = ""; 
     String   vacum_string   = "";
+    String   vacum_numero   = "";
     int      vqtabre_chave  = 0;
     int      vqtfech_chave  = 0;        
     int      vqtabre_comen  = 0;
@@ -27,6 +26,7 @@ public class principal extends javax.swing.JFrame {
     boolean vabre_comentario;
     boolean vfecha_comentario;
     boolean vabre_variavel;
+    boolean vabre_numero;
     
     String[] vettokens;
     String[] vlinha_token;
@@ -1250,7 +1250,9 @@ public class principal extends javax.swing.JFrame {
         vacum_string      = "";  
         vabre_variavel    = false;
         vacum_variavel    = "";
-        
+        vabre_numero      = false;
+        vacum_numero      = "";  
+                
         jTextoErros.setText("");
         jAbas.setSelectedIndex(0);
         
@@ -1273,7 +1275,7 @@ public class principal extends javax.swing.JFrame {
             /** LENDO OS CARACTERES DE CADA LINHA **/
             for (int y = 0; y < linhas[i].length(); y++){
                 
-                vpos = linhas[i].substring(y, y + 1);
+                vpos = linhas[i].substring(y, y + 1).toLowerCase();
                 
                 verro = "";
                 verro = valida(linhas[i],vpos,i+1,y);
@@ -1465,8 +1467,42 @@ public class principal extends javax.swing.JFrame {
         if (vpos.equals("@")){
             vabre_variavel = true;        
             return "";
+        }
+        
+        /** TRATA NUMEROS INTEIROS/DECIMAIS **/
+        if (vnum.contains(vpos))
+            vabre_numero = true;
+        
+        if (vabre_numero){
+            
+            if (vnum.contains(vpos)){
+                vacum_numero += vpos;
+                
+                /** CASO SEJA FINAL DE LINHA E SEJA ABERTURA DE NUMERO,
+                    CRIA NOVO TOKEN E ZERA VARIAVEIS **/
+                if (y == vlinha.length()-1){
+                    if (vacum_numero.contains("."))
+                        vacumtokens += Integer.toString(i) + "-" + Integer.toString(6) + ";";                    
+                    else
+                        vacumtokens += Integer.toString(i) + "-" + Integer.toString(5) + ";";                    
+                    
+                    vacum_numero = "";
+                    vabre_numero = false;
+                }
+                    
+                return "";
+            }
+            else{
+                if (vacum_numero.contains("."))                
+                    vacumtokens += Integer.toString(i) + "-" + Integer.toString(6) + ";";
+                else 
+                    vacumtokens += Integer.toString(i) + "-" + Integer.toString(5) + ";";
+                
+                vacum_numero = "";
+                vabre_numero = false;
+            }            
         }        
-
+        
         /** CASO POSICAO VPOS FOR BRANCO E VPOS_ACUM TIVER VALOR, 
             SIGNIFICA QUE TEM ERRO */
         if (vpos.trim().isEmpty()){
@@ -1520,7 +1556,7 @@ public class principal extends javax.swing.JFrame {
                 do{
                     if ((y + vcont + 1) <= vlinha.length()){
                         
-                        vaux = vcomando + vlinha.substring(y+1,y+vcont+1);
+                        vaux = vcomando + vlinha.substring(y+1,y+vcont+1).toLowerCase();
                         
                         if (!vaux.equals(vetor[x].substring(0,vaux.length())))
                             break;                    
