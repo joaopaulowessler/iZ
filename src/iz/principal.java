@@ -1,6 +1,12 @@
 package iz;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,6 +38,9 @@ public class principal extends javax.swing.JFrame {
     String[] vlinha_token;
     String[] linhas;        
     
+    private String caminho = "";
+    private boolean open = false;
+    
     private DefaultTableModel tabela;
     
     public principal() {
@@ -56,6 +65,7 @@ public class principal extends javax.swing.JFrame {
         JMenuPrincipal = new javax.swing.JMenuBar();
         JMenuArquivo = new javax.swing.JMenu();
         jMenuNovo = new javax.swing.JMenuItem();
+        jMenuAbrir = new javax.swing.JMenuItem();
         JMenuSalvar = new javax.swing.JMenuItem();
         JMenuFechar = new javax.swing.JMenuItem();
         JMenuExecutar = new javax.swing.JMenu();
@@ -68,7 +78,6 @@ public class principal extends javax.swing.JFrame {
 
         jTexto.setColumns(20);
         jTexto.setRows(5);
-        jTexto.setText("@wsa@cxs=\n\n");
         jScrollPane1.setViewportView(jTexto);
 
         JTableToken.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
@@ -1161,6 +1170,15 @@ public class principal extends javax.swing.JFrame {
         });
         JMenuArquivo.add(jMenuNovo);
 
+        jMenuAbrir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuAbrir.setText("Abrir");
+        jMenuAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAbrirActionPerformed(evt);
+            }
+        });
+        JMenuArquivo.add(jMenuAbrir);
+
         JMenuSalvar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         JMenuSalvar.setText("Salvar");
         JMenuSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -1170,8 +1188,13 @@ public class principal extends javax.swing.JFrame {
         });
         JMenuArquivo.add(JMenuSalvar);
 
-        JMenuFechar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        JMenuFechar.setText("Fechar");
+        JMenuFechar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        JMenuFechar.setText("Sair");
+        JMenuFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMenuFecharActionPerformed(evt);
+            }
+        });
         JMenuArquivo.add(JMenuFechar);
 
         JMenuPrincipal.add(JMenuArquivo);
@@ -1221,11 +1244,23 @@ public class principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNovoActionPerformed
-        // TODO add your handling code here:
+        jTexto.setText("");
+        String caminho = "";
+        boolean open = false;
     }//GEN-LAST:event_jMenuNovoActionPerformed
 
     private void JMenuSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuSalvarActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null,open);
+        if (!open) {
+            JFileChooser fc = new JFileChooser();
+            //Exibe o diálogo. Deve ser passado por parâmetro o JFrame de origem.
+            fc.showSaveDialog(null);
+            //Captura o objeto File que representa o arquivo selecionado.
+            File selFile = fc.getSelectedFile();            
+            gravarArquivo(selFile.getAbsolutePath(), jTexto.getText());
+        }else {
+            gravarArquivo(caminho, jTexto.getText());
+        }
     }//GEN-LAST:event_JMenuSalvarActionPerformed
 
     private void jMenuSobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSobActionPerformed
@@ -1337,6 +1372,25 @@ public class principal extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jMenuExecActionPerformed
+
+    private void jMenuAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAbrirActionPerformed
+        JFileChooser fc = new JFileChooser();
+        //Exibe o diálogo. Deve ser passado por parâmetro o JFrame de origem.
+        fc.showOpenDialog(null);
+        //Captura o objeto File que representa o arquivo selecionado.
+        File selFile = fc.getSelectedFile();
+        System.out.println(selFile.getAbsolutePath());
+        caminho = selFile.getAbsolutePath();
+        jTexto.setText(lerArquivo(caminho));
+        open = true;
+    }//GEN-LAST:event_jMenuAbrirActionPerformed
+
+    private void JMenuFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuFecharActionPerformed
+        int x = JOptionPane.showConfirmDialog(null, "Você realmente deseja sair?", "Sair", JOptionPane.ERROR_MESSAGE);
+        if (x == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_JMenuFecharActionPerformed
     
     String valida(String vlinha, String vpos, int i, int y){
         int vtoken   = 0;
@@ -1418,6 +1472,9 @@ public class principal extends javax.swing.JFrame {
             if (vabre_string){
                 vabre_string = false;
                 
+                if (!validaCapacidade("STRING",vacum_string).isEmpty())
+                    return "ERRO - Limite de caracteres excedido. Linha: " + String.valueOf(i);
+                
                 if (vacum_string.length() > 1)
                     vacumtokens += Integer.toString(i) + "-" + Integer.toString(9) + ";";
                 else
@@ -1475,12 +1532,19 @@ public class principal extends javax.swing.JFrame {
         
         if (vabre_numero){
             
+            /** VALIDA SE CARACTERE LIDO É UM NUMERO **/
             if (vnum.contains(vpos)){
                 vacum_numero += vpos;
                 
                 /** CASO SEJA FINAL DE LINHA E SEJA ABERTURA DE NUMERO,
                     CRIA NOVO TOKEN E ZERA VARIAVEIS **/
                 if (y == vlinha.length()-1){
+                    if (!validaNumero(vacum_numero).isEmpty()) 
+                        return "ERRO - Informe o Inteiro/Decimal corretamente. Linha: " + String.valueOf(i);
+                    
+                    if (!validaCapacidade("NUMEROS",vacum_numero).isEmpty())
+                        return "ERRO - Limite de números Inteiro/Decimal excedido. Linha: " + String.valueOf(i);
+                    
                     if (vacum_numero.contains("."))
                         vacumtokens += Integer.toString(i) + "-" + Integer.toString(6) + ";";                    
                     else
@@ -1492,7 +1556,15 @@ public class principal extends javax.swing.JFrame {
                     
                 return "";
             }
+            /** CASO NAO SEJA NUMERO, ARMAZENA UM NOVO TOKEN, DEVIDO AS POSICOES ANTERIORES 
+             * SEREM UM INT/FLOAT **/
             else{
+                if (!validaNumero(vacum_numero).isEmpty()) 
+                    return "ERRO - Informe o Inteiro/Decimal corretamente. Linha: " + String.valueOf(i);
+                
+                if (!validaCapacidade("NUMEROS",vacum_numero).isEmpty())
+                    return "ERRO - Limite de números Inteiro/Decimal excedido. Linha: " + String.valueOf(i);
+                
                 if (vacum_numero.contains("."))                
                     vacumtokens += Integer.toString(i) + "-" + Integer.toString(6) + ";";
                 else 
@@ -1543,8 +1615,15 @@ public class principal extends javax.swing.JFrame {
         boolean vachou = false;
         String vaux = "";
         
+        /** PERCORE VETOR DE TOKENS **/
         for (int x = 1; x< vetor.length; x++){  
             
+            /** SO ENTRA SE LENGTH DO TOKEN FOR MAIOR 
+             * QUE O COMANDO PASSADO PARA FUNCAO **/
+            
+            /** AQUI VALIDARA SE O CAMANDO PERTENCE A TOKENS COM LENGTH MAIORES. 
+             * POR O SIMBOLO +, ELE PODE SER + OU ++ DEPENDENDO A PROXIMA POSICAO, 
+             É ISSO O OBJETIVO DESSA LOGICA**/
             if (vetor[x].length() > vcomando.length()){
                 
                 vaux  = vcomando;
@@ -1576,6 +1655,7 @@ public class principal extends javax.swing.JFrame {
             }    
         }
         
+        /** PERCORRE TODOS OS TOKENS, E FAZ UMA COMPARACAO SIMPLES **/
         for (int x = 1; x< vetor.length; x++){
             if (vetor[x].equals(vcomando))
                 return x;
@@ -1602,6 +1682,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane JPanesAnalise;
     private javax.swing.JTable JTableToken;
     private javax.swing.JTabbedPane jAbas;
+    private javax.swing.JMenuItem jMenuAbrir;
     private javax.swing.JMenuItem jMenuExec;
     private javax.swing.JMenuItem jMenuNovo;
     private javax.swing.JMenuItem jMenuSob;
@@ -1679,5 +1760,112 @@ public class principal extends javax.swing.JFrame {
                 JTableToken.setValueAt(zer, linhas, colunas);  
             }  
         }  
+    }
+    
+    private String lerArquivo(String nomeArquivo) {
+        FileReader fileReader = null;
+        BufferedReader bufferedReader = null;
+        try {
+            fileReader = new FileReader(nomeArquivo);
+            bufferedReader = new BufferedReader(fileReader);
+            StringBuilder sb = new StringBuilder();
+            while (bufferedReader.ready()) {
+                sb.append(bufferedReader.readLine());
+                sb.append("\n");
+            }
+            return sb.toString();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao abrir o arquivo: "
+                    + ex.getMessage());
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Erro ao abrir o arquivo: "
+                            + ex.getMessage());
+                }
+            }
+            if (fileReader != null) {
+                try {
+                    fileReader.close();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Erro ao abrir o arquivo: "
+                            + ex.getMessage());
+                }
+            }
+        }
+        return null;
+    }
+    
+    private void gravarArquivo(String nomeArquivo, String textoArquivo) {
+        FileWriter fileWriter = null;
+        BufferedWriter bufferedWriter = null;
+        try {
+            fileWriter = new FileWriter(nomeArquivo, false);
+            bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(textoArquivo);
+            bufferedWriter.flush();
+            //Se chegou ate essa linha, conseguiu salvar o arquivo com sucesso.
+            JOptionPane.showMessageDialog(this, "Salvo com sucesso");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar o arquivo: " + ex.getMessage());
+        } finally {
+            if (bufferedWriter != null) {
+                try {
+                    bufferedWriter.close();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Erro ao salvar o arquivo: "
+                            + ex.getMessage());
+                }
+            }
+            if (fileWriter != null) {
+                try {
+                    fileWriter.close();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Erro ao salvar o arquivo: "
+                            + ex.getMessage());
+                }
+            }
+        }
+    }
+    
+    String validaNumero(String vnumero){
+        int vx = 0;
+        
+        /** VALIDA SE NO MESMO NUMERO EXISTE MAIS DE UM PONTO,
+         * SE SIM, RETORNA ERRO **/
+        for (int vi = 0; vi < vnumero.length(); vi++){
+
+            if (vnumero.substring(vi, vi + 1).equals("."))    
+                vx ++;
+        }
+        
+        if (vx > 1)
+            return "ERRO";
+        else 
+            return "";
+    }
+    
+    String validaCapacidade(String tipo, String valor){
+        int vint = 0;
+        
+        /** CASO FOR STRING, VALIDA SE QTD DE CARACTERES
+         * EXCEDEU O LIMITE **/
+        if ((tipo.equals("STRING")) &&
+            (valor.length() > 65536))
+            return "ERRO";
+        
+        /** CASO FOR NUMERO, USA NumberFormatException
+         * VALIDACAO DO PROPIO JAVA **/
+        if (tipo.equals("NUMEROS")){
+            try {
+                vint = Integer.parseInt(valor);
+            } catch (NumberFormatException ex) {  
+                return "ERRO";
+            }
+        }
+        
+        return "";
     }
 }
