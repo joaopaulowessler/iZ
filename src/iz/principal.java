@@ -12,31 +12,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class principal extends javax.swing.JFrame {
     
-    String[] vetor          = new String[49];
-    String   vpos           = "";
-    String   vpos_acum      = "";
-    String   vvar           = "abcdefghijklmnopqrstuvxzyw0123456789-_";
-    String   vnum           = "0123456789.";    
-    String   vacumtokens    = "";
-    String   vacum_variavel = ""; 
-    String   vacum_string   = "";
-    String   vacum_numero   = "";
-    int      vqtabre_chave  = 0;
-    int      vqtfech_chave  = 0;        
-    int      vqtabre_comen  = 0;
-    int      vqtfech_comen  = 0;    
-    
-    boolean vabre_string;
-    boolean vabre_literal;
-    boolean vabre_comentario_linha;
-    boolean vabre_comentario;
-    boolean vfecha_comentario;
-    boolean vabre_variavel;
-    boolean vabre_numero;
-    
+    String[] vetor = new String[77];    
     String[] vettokens;
     String[] vlinha_token;
-    String[] linhas;        
     
     private String caminho = "";
     private boolean open = false;
@@ -46,7 +24,6 @@ public class principal extends javax.swing.JFrame {
     public principal() {
         initComponents();
         this.setLocationRelativeTo(this);
-        gravaTokens();
     }
 
     @SuppressWarnings("unchecked")
@@ -57,6 +34,8 @@ public class principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTexto = new javax.swing.JTextArea();
         jAbas = new javax.swing.JTabbedPane();
+        JPanesSintatico = new javax.swing.JScrollPane();
+        JTableSintatico = new javax.swing.JTable();
         JPanesAnalise = new javax.swing.JScrollPane();
         JTableToken = new javax.swing.JTable();
         jPanelErros = new javax.swing.JPanel();
@@ -78,7 +57,1035 @@ public class principal extends javax.swing.JFrame {
 
         jTexto.setColumns(20);
         jTexto.setRows(5);
+        jTexto.setText("void main{\n@integer: integer ; \n@float: float; \n\nvoid @function{\ninicio;\nfim\nreturn ()\n}\n\ninicio;\nfim\n}");
         jScrollPane1.setViewportView(jTexto);
+
+        JTableSintatico.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
+        JTableSintatico.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Sequência", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        JPanesSintatico.setViewportView(JTableSintatico);
+
+        jAbas.addTab("Análise Sintática", JPanesSintatico);
 
         JTableToken.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         JTableToken.setModel(new javax.swing.table.DefaultTableModel(
@@ -1092,7 +2099,7 @@ public class principal extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1126,7 +2133,7 @@ public class principal extends javax.swing.JFrame {
         );
         jPanelErrosLayout.setVerticalGroup(
             jPanelErrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
+            .addGap(0, 222, Short.MAX_VALUE)
             .addGroup(jPanelErrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelErrosLayout.createSequentialGroup()
                     .addContainerGap()
@@ -1140,11 +2147,11 @@ public class principal extends javax.swing.JFrame {
         jPanelPrinc.setLayout(jPanelPrincLayout);
         jPanelPrincLayout.setHorizontalGroup(
             jPanelPrincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPrincLayout.createSequentialGroup()
+            .addGroup(jPanelPrincLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelPrincLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jAbas))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jAbas, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanelPrincLayout.setVerticalGroup(
@@ -1268,107 +2275,68 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuSobActionPerformed
 
     private void jMenuExecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuExecActionPerformed
-        String verro = "";
+        String vretorno = "";
+        
         gravaTokens();
         LimparTabela();        
-        vacumtokens       = "";
-        vqtabre_chave     = 0;
-        vqtfech_chave     = 0;
-        vqtabre_comen     = 0;
-        vqtfech_comen     = 0;
-        vabre_comentario  = false;
-        vfecha_comentario = false;
-        vabre_literal     = false;
-        vfecha_comentario = false;
-        vpos_acum         = "";
-        vabre_string      = false;
-        vacum_string      = "";  
-        vabre_variavel    = false;
-        vacum_variavel    = "";
-        vabre_numero      = false;
-        vacum_numero      = "";  
-                
+        
         jTextoErros.setText("");
         jAbas.setSelectedIndex(0);
         
         if (jTexto.getText().isEmpty()){
-            jAbas.setSelectedIndex(1);
+            jAbas.setSelectedIndex(2);
             jTextoErros.setText("ERRO - Nenhum programa foi informado!");
             return;
         }
         
-        /** DIVIDE TODO PROGRAMA EM LINHAS **/
-        linhas = jTexto.getText().split("\n");
+        Lexico lexico = new Lexico();
+        vretorno = lexico.validaLexico(jTexto.getText());
         
-        /** LENDO TODAS AS LINHAS **/
-        for (int i = 0; i < linhas.length; i++){
-            
-            vabre_comentario_linha = false;
-            
-            linhas[i] = linhas[i].trim();
-            
-            /** LENDO OS CARACTERES DE CADA LINHA **/
-            for (int y = 0; y < linhas[i].length(); y++){
+        if (vretorno.contains("ERRO")){
+            jAbas.setSelectedIndex(2);
+            jTextoErros.setText(vretorno);
+            return;
+        }
+        
+        String descricao = "";
                 
-                vpos = linhas[i].substring(y, y + 1).toLowerCase();
-                
-                verro = "";
-                verro = valida(linhas[i],vpos,i+1,y);
-                
-                if (!verro.isEmpty()){
-                    jAbas.setSelectedIndex(1);
-                    jTextoErros.setText(verro);
-                    return;
-                }
-            }
-            
-            if (!vpos_acum.isEmpty()){
-                jAbas.setSelectedIndex(1);
-                jTextoErros.setText("ERRO - Comando: " + vpos_acum + " não encontrado!");
-                return;
-            }            
-        }
-        
-        /** VERIFICA SE FICOU ALGUMA ABERTURA DE LITERAL E STRING EM ABERTO **/
-        if (vabre_literal){
-            jAbas.setSelectedIndex(1);
-            jTextoErros.setText("ERRO - Existe abertura de String sem fechamento!");
-            return;
-        }
-        
-        if (vabre_string){
-            jAbas.setSelectedIndex(1);
-            jTextoErros.setText("ERRO - Existe abertura de Char sem fechamento!");
-            return;
-        }
-        
-        /** ADICIONA FINAL DE ARQUIVO A VARIAVEL DE TOKENS **/
-        vacumtokens += String.valueOf(linhas.length) + "-48;";
-        
-        /** VALIDA QTD DE CHAVES E COMENTARIOS **/
-        if (vqtabre_chave != vqtfech_chave){
-            jAbas.setSelectedIndex(1);
-            jTextoErros.setText("ERRO - Número de aberturas e fechamento de chaves divergem!");
-            return;
-        }
-        
-        if (vqtabre_comen != vqtfech_comen){
-            jAbas.setSelectedIndex(1);
-            jTextoErros.setText("ERRO - Número de aberturas e fechamento de comentários divergem!"); 
-            return;
-        }
-        
         /** LE TODOS OS TOKENS ENCONTRADOS E MOSTRA NA TABELA **/
-        if (!vacumtokens.isEmpty()){
-            vettokens = vacumtokens.split(";");
+        if (!vretorno.isEmpty()){
+            
+            vettokens = vretorno.split("@;");
             
             for (int i = 0; i < vettokens.length; i++){
-                
+                                
                 vlinha_token = vettokens[i].split("-");
-                         
+                
+                if (vlinha_token.length > 2)
+                    descricao = vlinha_token[2];
+                else 
+                    descricao = "";
+                
                 JTableToken.setValueAt(vlinha_token[0], i, 0);
                 JTableToken.setValueAt(vlinha_token[1], i, 1);
-                JTableToken.setValueAt(vetor[Integer.parseInt(vlinha_token[1])], i, 2);
+                JTableToken.setValueAt(descricao, i, 2);
+            }
+        }
+        
+        Sintatico sintatico = new Sintatico();
+        vretorno = sintatico.validaSintatico(vretorno);
+        
+        if (vretorno.contains("ERRO")){
+            jAbas.setSelectedIndex(2);
+            jTextoErros.setText(vretorno);
+            return;
+        }
+        
+        String[] vetsintatico;
+        if (!vretorno.isEmpty()){
+            vetsintatico = vretorno.split(";");
+            
+            for (int i = 0; i < vetsintatico.length; i++){
+
+                JTableSintatico.setValueAt(String.valueOf(i), i, 0);
+                JTableSintatico.setValueAt(vetsintatico[i], i, 1);
             }
         }
     }//GEN-LAST:event_jMenuExecActionPerformed
@@ -1392,278 +2360,6 @@ public class principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_JMenuFecharActionPerformed
     
-    String valida(String vlinha, String vpos, int i, int y){
-        int vtoken   = 0;
-        String verro = "";
-                
-        /** TRATAMENTO DE COMENTARIOS LINHA/BLOCO **/
-        if (vabre_comentario_linha)
-            return "";
-        
-        if ((vpos.equals("/")) && (!vabre_literal) && (!vabre_string)){
-            if ((y>0) && (vlinha.substring(y-1,y).equals("*")) && (vfecha_comentario))
-                return "";
-
-            if ((vlinha.length()-1!=y) && (vlinha.substring(y+1,y+2).equals("/"))){
-                vabre_comentario_linha = true;
-                return "";
-            }
-            
-            if ((vlinha.length()-1!=y) && (vlinha.substring(y+1,y+2).equals("*"))){
-                vqtabre_comen ++;
-
-                if (vabre_comentario)
-                    return "ERRO - Tentando abrir bloco de comentário, " +
-                           "sem fechar o antecessor. Linha: " + String.valueOf(i);
-
-                vabre_comentario = true;
-                return "";
-            }                                        
-        }
-        
-        if ((vpos.equals("*")) && (!vabre_literal) && (!vabre_string)){
-            
-            if ((y>0) && (vlinha.substring(y-1,y).equals("/")) && (vabre_comentario))
-                return "";
-            
-            if ((vlinha.length()-1!=y) && (vlinha.substring(y+1,y+2).equals("/"))){
-                vqtfech_comen ++;
-            
-                if (!vabre_comentario)
-                    return "ERRO - Tentando fechar bloco de comentário, " +
-                           "sem mesmo abri-lo. Linha: " + String.valueOf(i);
-
-                vabre_comentario  = false;
-                vfecha_comentario = true;
-                return "";
-            }
-        }
-        
-        if (vabre_comentario)
-            return "";
-        
-        /** TRATAMENTO LITERAL **/
-        if (vpos.equals("\"") && (!vabre_string)){
-            if (vabre_literal)
-                vabre_literal  = false;
-            else{
-                if (!vpos_acum.trim().isEmpty())
-                    return "ERRO - Comando: " + vpos_acum + " descohecido. Linha: " + String.valueOf(i);
-                                    
-                vabre_literal  = true;
-                
-                vacumtokens += Integer.toString(i) + "-" + Integer.toString(11) + ";";
-                vpos_acum = "";
-            }
-            
-            return "";
-        }
-        
-        if (vabre_literal)
-            return "";
-        
-        /** TRATAMENTO CHAR/STRING **/
-        if ((vabre_string) && (!vpos.equals("'"))){            
-            vacum_string += vpos;            
-            return "";
-        }
-        
-        if (vpos.equals("'")){
-            if (vabre_string){
-                vabre_string = false;
-                
-                if (!validaCapacidade("STRING",vacum_string).isEmpty())
-                    return "ERRO - Limite de caracteres excedido. Linha: " + String.valueOf(i);
-                
-                if (vacum_string.length() > 1)
-                    vacumtokens += Integer.toString(i) + "-" + Integer.toString(9) + ";";
-                else
-                    vacumtokens += Integer.toString(i) + "-" + Integer.toString(8) + ";";
-                
-                vacum_string = "";
-            }
-            else{
-                if (!vpos_acum.trim().isEmpty())
-                    return "ERRO - Comando: " + vpos_acum + " descohecido. Linha: " + String.valueOf(i);
-                
-                vabre_string = true;
-            }
-            
-            return "";
-        }
-        
-        /** TRATA VARIAVEL **/
-        if (vabre_variavel){
-            
-            if (vvar.contains(vpos)){
-                vacum_variavel += vpos.trim();
-                
-                /** CASO SEJA FINAL DE LINHA E SEJA ABERTURA DE VARIAVEL,
-                    CRIA NOVO TOKEN E ZERA VARIAVEIS **/
-                if (y == (vlinha.length() -1)){
-
-                    vacumtokens += Integer.toString(i+1) + "-" + Integer.toString(7) + ";";
-                    vacum_variavel = "";
-                    vabre_variavel = false;                    
-                }
-        
-                return "";
-            }
-            else{
-                if (vacum_variavel.length() < 1)
-                    return "ERRO - Informe corretamente o nome da variável. Linha: " + String.valueOf(i);
-                
-                vacumtokens += Integer.toString(i) + "-" + Integer.toString(7) + ";";                
-                vacum_variavel = "";
-                
-                if (!vpos.equals("@"))
-                    vabre_variavel = false;
-            }            
-        }
-        
-        if (vpos.equals("@")){
-            vabre_variavel = true;        
-            return "";
-        }
-        
-        /** TRATA NUMEROS INTEIROS/DECIMAIS **/
-        if (vnum.contains(vpos))
-            vabre_numero = true;
-        
-        if (vabre_numero){
-            
-            /** VALIDA SE CARACTERE LIDO É UM NUMERO **/
-            if (vnum.contains(vpos)){
-                vacum_numero += vpos;
-                
-                /** CASO SEJA FINAL DE LINHA E SEJA ABERTURA DE NUMERO,
-                    CRIA NOVO TOKEN E ZERA VARIAVEIS **/
-                if (y == vlinha.length()-1){
-                    if (!validaNumero(vacum_numero).isEmpty()) 
-                        return "ERRO - Informe o Inteiro/Decimal corretamente. Linha: " + String.valueOf(i);
-                    
-                    if (!validaCapacidade("NUMEROS",vacum_numero).isEmpty())
-                        return "ERRO - Limite de números Inteiro/Decimal excedido. Linha: " + String.valueOf(i);
-                    
-                    if (vacum_numero.contains("."))
-                        vacumtokens += Integer.toString(i) + "-" + Integer.toString(6) + ";";                    
-                    else
-                        vacumtokens += Integer.toString(i) + "-" + Integer.toString(5) + ";";                    
-                    
-                    vacum_numero = "";
-                    vabre_numero = false;
-                }
-                    
-                return "";
-            }
-            /** CASO NAO SEJA NUMERO, ARMAZENA UM NOVO TOKEN, DEVIDO AS POSICOES ANTERIORES 
-             * SEREM UM INT/FLOAT **/
-            else{
-                if (!validaNumero(vacum_numero).isEmpty()) 
-                    return "ERRO - Informe o Inteiro/Decimal corretamente. Linha: " + String.valueOf(i);
-                
-                if (!validaCapacidade("NUMEROS",vacum_numero).isEmpty())
-                    return "ERRO - Limite de números Inteiro/Decimal excedido. Linha: " + String.valueOf(i);
-                
-                if (vacum_numero.contains("."))                
-                    vacumtokens += Integer.toString(i) + "-" + Integer.toString(6) + ";";
-                else 
-                    vacumtokens += Integer.toString(i) + "-" + Integer.toString(5) + ";";
-                
-                vacum_numero = "";
-                vabre_numero = false;
-            }            
-        }        
-        
-        /** CASO POSICAO VPOS FOR BRANCO E VPOS_ACUM TIVER VALOR, 
-            SIGNIFICA QUE TEM ERRO */
-        if (vpos.trim().isEmpty()){
-            if (!vpos_acum.trim().isEmpty())
-                return "ERRO - Comando: " + vpos_acum + " descohecido. Linha: " + String.valueOf(i);                
-            
-            return "";
-        }        
-        
-        /** SOMA QTD DE CHAVES ABERTAS/FECHADAS **/
-        if (vpos.equals("{")) 
-           vqtabre_chave ++;
-        
-        if (vpos.equals("}"))
-           vqtfech_chave ++;        
-        
-        vpos_acum += vpos.trim();
-        
-        /** CHAMA FUNCAO PARA PROCURAR OS TOKENS **/
-        vtoken = procuraToken(vlinha,vpos_acum,i,y);
-        
-        /** CASO POSITIVO, SIGNIFICA QUE 
-            FOI ENCONTRADO TOKEN E ACUMULA NO VETOR DE TOKENS **/
-        if (vtoken > 0){
-            vacumtokens += Integer.toString(i) + "-" + Integer.toString(vtoken) + ";";
-            vpos_acum = "";
-        }
-        
-        /** CASO RETORNO SEJA NEGATIVO, SIGNIFICA QUE EXISTE ERRO **/
-        if (vtoken < 0)            
-            return "ERRO - Comando descohecido. Linha: " + String.valueOf(i);
-        
-        return "";
-    }
-    
-    int procuraToken(String vlinha, String vcomando, int i, int y){
-        int vcont = 0;
-        boolean vachou = false;
-        String vaux = "";
-        
-        /** PERCORE VETOR DE TOKENS **/
-        for (int x = 1; x< vetor.length; x++){  
-            
-            /** SO ENTRA SE LENGTH DO TOKEN FOR MAIOR 
-             * QUE O COMANDO PASSADO PARA FUNCAO **/
-            
-            /** AQUI VALIDARA SE O CAMANDO PERTENCE A TOKENS COM LENGTH MAIORES. 
-             * POR O SIMBOLO +, ELE PODE SER + OU ++ DEPENDENDO A PROXIMA POSICAO, 
-             É ISSO O OBJETIVO DESSA LOGICA**/
-            if (vetor[x].length() > vcomando.length()){
-                
-                vaux  = vcomando;
-                vcont = 0;
-                
-                if (!vaux.equals(vetor[x].substring(0,vaux.length())))
-                    continue;
-                
-                do{
-                    if ((y + vcont + 1) <= vlinha.length()){
-                        
-                        vaux = vcomando + vlinha.substring(y+1,y+vcont+1).toLowerCase();
-                        
-                        if (!vaux.equals(vetor[x].substring(0,vaux.length())))
-                            break;                    
-                        
-                        if (vaux.equals(vetor[x]))                    
-                            return 0;
-                        
-                        if (vaux.length() < vlinha.length())
-                            vcont ++;
-                        else
-                            break;
-                    }
-                    else
-                        break;
-                    
-                }while(true);    
-            }    
-        }
-        
-        /** PERCORRE TODOS OS TOKENS, E FAZ UMA COMPARACAO SIMPLES **/
-        for (int x = 1; x< vetor.length; x++){
-            if (vetor[x].equals(vcomando))
-                return x;
-        }
-        
-        return -1; 
-    }
-    
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1680,6 +2376,8 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar JMenuPrincipal;
     private javax.swing.JMenuItem JMenuSalvar;
     private javax.swing.JScrollPane JPanesAnalise;
+    private javax.swing.JScrollPane JPanesSintatico;
+    private javax.swing.JTable JTableSintatico;
     private javax.swing.JTable JTableToken;
     private javax.swing.JTabbedPane jAbas;
     private javax.swing.JMenuItem jMenuAbrir;
@@ -1699,57 +2397,6 @@ public class principal extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    void gravaTokens(){
-        vetor[1]  = "while";				
-        vetor[2]  = "void";			
-        vetor[3]  = "string";			
-        vetor[4]  = "return";				
-        vetor[5]  = "numerointeiro";							
-        vetor[6]  = "numerofloat";							
-        vetor[7]  = "nomevariavel";							
-        vetor[8]  = "nomedochar";						
-        vetor[9]  = "nomedastring";							
-        vetor[10] = "main";			
-        vetor[11] = "literal";					
-        vetor[12] = "integer";					
-        vetor[13] = "inicio";
-        vetor[14] = "if";		
-        vetor[15] = "î";		
-        vetor[16] = "for";			
-        vetor[17] = "float";			
-        vetor[18] = "fim";			
-        vetor[19] = "else";			
-        vetor[20] = "do";		
-        vetor[21] = "cout";			
-        vetor[22] = "cin";			
-        vetor[23] = "char";			
-        vetor[24] = "callfuncao";						
-        vetor[25] = ">>";		
-        vetor[26] = ">=";		
-        vetor[27] = ">";	
-        vetor[28] = "==";		
-        vetor[29] = "=";	
-        vetor[30] = "<=";		
-        vetor[31] = "<<";		
-        vetor[32] = "<";	
-        vetor[33] = "++";		
-        vetor[34] = "+";	
-        vetor[35] = "}";	
-        vetor[36] = "{";	
-        vetor[37] = ";";	
-        vetor[38] = ":";	
-        vetor[39] = "/";	
-        vetor[40] = ",";	
-        vetor[41] = "*";	
-        vetor[42] = ")";	
-        vetor[43] = "(";	
-        vetor[44] = "$";	
-        vetor[45] = "!=";		
-        vetor[46] = "--";		
-        vetor[47] = "-";
-        vetor[48] = "$";
-    }
-    
     void LimparTabela() {  
         int linhas = 0;  
         int colunas = 0;  
@@ -1760,6 +2407,12 @@ public class principal extends javax.swing.JFrame {
                 JTableToken.setValueAt(zer, linhas, colunas);  
             }  
         }  
+        
+        for (linhas = 0; linhas <= JTableSintatico.getRowCount() - 1; linhas++) {  
+            for (colunas = 0; colunas <= JTableSintatico.getColumnCount() - 1; colunas++) {  
+                JTableSintatico.setValueAt(zer, linhas, colunas);  
+            }  
+        }
     }
     
     private String lerArquivo(String nomeArquivo) {
@@ -1830,42 +2483,82 @@ public class principal extends javax.swing.JFrame {
         }
     }
     
-    String validaNumero(String vnumero){
-        int vx = 0;
-        
-        /** VALIDA SE NO MESMO NUMERO EXISTE MAIS DE UM PONTO,
-         * SE SIM, RETORNA ERRO **/
-        for (int vi = 0; vi < vnumero.length(); vi++){
-
-            if (vnumero.substring(vi, vi + 1).equals("."))    
-                vx ++;
-        }
-        
-        if (vx > 1)
-            return "ERRO";
-        else 
-            return "";
-    }
-    
-    String validaCapacidade(String tipo, String valor){
-        int vint = 0;
-        
-        /** CASO FOR STRING, VALIDA SE QTD DE CARACTERES
-         * EXCEDEU O LIMITE **/
-        if ((tipo.equals("STRING")) &&
-            (valor.length() > 65536))
-            return "ERRO";
-        
-        /** CASO FOR NUMERO, USA NumberFormatException
-         * VALIDACAO DO PROPIO JAVA **/
-        if (tipo.equals("NUMEROS")){
-            try {
-                vint = Integer.parseInt(valor);
-            } catch (NumberFormatException ex) {  
-                return "ERRO";
-            }
-        }
-        
-        return "";
+    void gravaTokens(){
+        vetor[1]  = "while";				
+        vetor[2]  = "void";			
+        vetor[3]  = "string";			
+        vetor[4]  = "return";				
+        vetor[5]  = "numerointeiro";							
+        vetor[6]  = "numerofloat";							
+        vetor[7]  = "nomevariavel";							
+        vetor[8]  = "nomedochar";						
+        vetor[9]  = "nomedastring";							
+        vetor[10] = "main";			
+        vetor[11] = "literal";					
+        vetor[12] = "integer";					
+        vetor[13] = "inicio";
+        vetor[14] = "if";		
+        vetor[15] = "î";		
+        vetor[16] = "for";			
+        vetor[17] = "float";			
+        vetor[18] = "fim";			
+        vetor[19] = "else";			
+        vetor[20] = "do";		
+        vetor[21] = "cout";			
+        vetor[22] = "cin";			
+        vetor[23] = "char";			
+        vetor[24] = "callfuncao";						
+        vetor[25] = ">>";		
+        vetor[26] = ">=";		
+        vetor[27] = ">";	
+        vetor[28] = "==";		
+        vetor[29] = "=";	
+        vetor[30] = "<=";		
+        vetor[31] = "<<";		
+        vetor[32] = "<";	
+        vetor[33] = "++";		
+        vetor[34] = "+";	
+        vetor[35] = "}";	
+        vetor[36] = "{";	
+        vetor[37] = ";";	
+        vetor[38] = ":";	
+        vetor[39] = "/";	
+        vetor[40] = ",";	
+        vetor[41] = "*";	
+        vetor[42] = ")";	
+        vetor[43] = "(";	
+        vetor[44] = "$";	
+        vetor[45] = "!=";		
+        vetor[46] = "--";		
+        vetor[47] = "-";
+        vetor[48] = "BLOCO";
+        vetor[49] = "DCLVAR";
+        vetor[50] = "DCLFUNC";
+        vetor[51] = "CORPO";
+        vetor[52] = "REPIDENT";
+        vetor[53] = "TIPO";
+        vetor[54] = "LDVAR";
+        vetor[55] = "LID";
+        vetor[56] = "TIPO_RETORNO";
+        vetor[57] = "DEFPAR";
+        vetor[58] = "VALORRETORNO";
+        vetor[59] = "PARAM";
+        vetor[60] = "LPARAM";
+        vetor[61] = "COMANDO";
+        vetor[62] = "REPCOMANDO";
+        vetor[63] = "EXPRESSAO";
+        vetor[64] = "PARAMETROS";
+        vetor[65] = "TPARAM";
+        vetor[66] = "REPPAR";
+        vetor[67] = "COMPARACAO";
+        vetor[68] = "ELSEPARTE";
+        vetor[69] = "CONTCOMPARACAO";
+        vetor[70] = "INCREMENTO";
+        vetor[71] = "SEQCOUT";
+        vetor[72] = "SEQUENCIA";
+        vetor[73] = "TERMO";
+        vetor[74] = "REPEXP";
+        vetor[75] = "FATOR";
+        vetor[76] = "REPTERMO";
     }
 }
